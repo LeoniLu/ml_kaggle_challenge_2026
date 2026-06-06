@@ -2,7 +2,7 @@ import os
 import shutil
 from sklearn.metrics import r2_score
 
-from data_parser import X9Mapper, DataAugment
+from data_parser import X9Mapper, DataAugment, DataParser
 from runners import SVRRunner
 
 
@@ -24,6 +24,7 @@ def print_r2(data, predictor):
     print(f"Overall R2 score on train data is: {r2}")
 
 def linear_scann(data, output_dir, transform=None):
+    clear_dir(output_dir)
     name = "linear"
     svr_runner = SVRRunner(data, output_dir=output_dir, cmin=1000, cmax=2000, emin=200, emax=800, fold=3, steps=32,
                            scaler="Robust", name=name)
@@ -33,6 +34,7 @@ def linear_scann(data, output_dir, transform=None):
     print_r2(data, svr_runner.last_model)
 
 def expo_scann(data, output_dir, transform=None):
+    clear_dir(output_dir)
     c = []
     e = []
     dirs =[]
@@ -61,7 +63,7 @@ def main():
     train_data_path = f"{dir}/spring2026_kaggle_linear_regression_challenge_train.csv"
     test_data_path = f"{dir}/spring2026_kaggle_linear_regression_challenge_test.csv"
 
-    data = DataAugment()
+    data = DataParser()
     #data, outlier = X9Mapper(), False
     data.parse(train_data_path, test_data_path)
 

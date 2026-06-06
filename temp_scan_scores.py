@@ -2,7 +2,6 @@ from pathlib import Path
 import json
 from typing import Any, Dict
 
-
 def load_json_tree(root_dir: str | Path) -> Dict[str, Any]:
     """
     Recursively find and load all JSON files under root_dir.
