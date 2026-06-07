@@ -11,20 +11,20 @@ class DataParser:
         self.test_data_raw :pd.DataFrame | None = None
         self.Y = "target"
         self.ID = "Id"
-        self.x_columns = []
+        self.X = []
 
     def parse(self, training_data_path, test_data_path):
         self.training_data_path = training_data_path
         self.test_data_path = test_data_path
         self.training_data_raw = pd.read_csv(self.training_data_path)
         self.test_data_raw = pd.read_csv(self.test_data_path)
-        self.x_columns = [x for x in self.training_data_raw.columns if x != self.Y and x != self.ID]
+        self.X = [x for x in self.training_data_raw.columns if x != self.Y and x != self.ID]
 
     def test_x(self):
-        return self.test_data_raw[self.x_columns]
+        return self.test_data_raw[self.X]
 
     def train_x(self):
-        return self.training_data_raw[self.x_columns]
+        return self.training_data_raw[self.X]
 
     def train_y(self):
         return self.training_data_raw['target']
@@ -42,6 +42,7 @@ class X9Mapper(DataParser):
         self.mapped_training_x = None
         self.mapped_testing_x = None
         self.X9="x9"
+
 
     def train_x(self):
         if self.mapped_training_x is None:

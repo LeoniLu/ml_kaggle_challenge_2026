@@ -3,10 +3,10 @@ from sklearn.svm import SVR
 from sklearn.preprocessing import FunctionTransformer
 
 from data_parser import DataParser
-from trainer import BaseTrainer
+from  trainer import BaseTrainer
 
 class SVRTrainer(BaseTrainer):
-    def __init__(self, data: DataParser, fold_splits=5, scoring="neg_mean_squared_error", refit=False, scalor="Robust", transform_func=None):
+    def __init__(self, data: DataParser, fold_splits=10, scoring="neg_mean_squared_error", refit=False, scalor="Robust", transform_func=None):
         super(SVRTrainer, self).__init__(fold_splits=fold_splits, scoring=scoring, refit=refit)
         self.data = data
         self.C = []

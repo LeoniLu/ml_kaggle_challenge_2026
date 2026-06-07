@@ -1,0 +1,10 @@
+{
+  "hyperparameters": {
+    "estimator__C": 250.0,
+    "estimator__epsilon": 625.0,
+    "estimator__gamma": "scale",
+    "estimator__kernel": "sigmoid",
+    "imputer__strategy": "median"
+  },
+  "score": 0.02869172077181555
+}

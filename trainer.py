@@ -63,9 +63,10 @@ class BaseTrainer:
         for k, v in self.best_params.items():
             print(f"        {k}: {v}")
 
+
     def search_grid(self, hyperparams, refit):
-        pipeline = self.pipeline(self.estimator_factory(), self.scaler_factory(), self.transformer_factory())
-        grid = GridSearchCV(pipeline, hyperparams, cv=self.fold, n_jobs=-1, verbose=True, refit=refit)
+        pl = self.pipeline(self.estimator_factory(), self.scaler_factory(), self.transformer_factory())
+        grid = GridSearchCV(pl, hyperparams, cv=self.fold, n_jobs=-1, verbose=True, refit=refit)
         return grid
 
     def search(self, x, y, hyperparams):

@@ -26,11 +26,11 @@ def print_r2(data, predictor):
 def linear_scann(data, output_dir, transform=None):
     clear_dir(output_dir)
     name = "linear"
-    svr_runner = SVRRunner(data, output_dir=output_dir, cmin=1000, cmax=2000, emin=200, emax=800, fold=3, steps=32,
+    svr_runner = SVRRunner(data, output_dir=output_dir, cmin=20, cmax=2000, emin=20, emax=2000, fold=3, steps=32,
                            scaler="Robust", name=name)
     svr_runner.transform(transform)
     submission = svr_runner.run()
-    submission.to_csv(f"{output_dir}/{name}_output.csv", index=False)
+    submission.to_csv(f"{output_dir}/{name}_output_3fold.csv", index=False)
     print_r2(data, svr_runner.last_model)
 
 def expo_scann(data, output_dir, transform=None):
@@ -38,7 +38,7 @@ def expo_scann(data, output_dir, transform=None):
     c = []
     e = []
     dirs =[]
-    for pow in range(0, 11):
+    for pow in range(1, 6):
         coef = 0.25 * (10**pow)
         dirs.append(f"{output_dir}/param_coef_{pow}")
         os.makedirs(dirs[-1])
@@ -67,10 +67,12 @@ def main():
     #data, outlier = X9Mapper(), False
     data.parse(train_data_path, test_data_path)
 
-    clear_dir(output_dir)
-    #expo_scann(data, output_dir+"_rough")
-    print("Print something so that I can make a breakpoint")
-    linear_scann(data, output_dir+"_fine")
+    # first run with expo_scann to get an extimate range on what C,e behaves the best
+    #expo_scann(data, output_dir+"_rough_3fold")
+
+    # after setting the min/max params in linear_scann from expo_scann's result,
+    # run with linear_scann for second iteration for more fine tuned best param
+    linear_scann(data, output_dir+"_fine_3fold")
 
 if __name__ == "__main__":
     main()

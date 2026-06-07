@@ -1,11 +1,14 @@
 import pandas as pd
+
 from svr import SVRTrainer
+
 
 def range_float(min, max, num):
     step = (max - min) / (num - 1)
     return [min + x * step for x in range(num)]
 
 class SVRRunner:
+
     def __init__(self, data, output_dir, cmin, cmax, emin, emax, fold=5, steps=8, scaler="Robust", name="run"):
         self.output_dir = output_dir
         self.data = data
@@ -22,7 +25,7 @@ class SVRRunner:
 
     def run(self):
         svr = self.iter_svc(0, self.data, self.cmin, self.cmax, self.emin, self.emax, float("-inf"), -1, ([], [], []))
-        predx = self.data.test_x().fillna(self.data.train_x().median(numeric_only=True))
+        predx = self.data.test_x().fillna(self.data.train_x().mean(numeric_only=True))
         predicted = svr.predict(predx)
         submission = pd.DataFrame({
             self.data.ID: self.data.test_data_raw[self.data.ID],
@@ -44,11 +47,11 @@ class SVRRunner:
         svr.set_C(c)
         svr.set_gamma(g)
         svr.set_epsilon(e)
-        svr.set_kernel(["rbf", "poly", "sigmoid"])
+        svr.set_kernel(["rbf", "sigmoid"])
         svr.search()
         svr.pretty_print()
         svr.save(f"{self.output_dir}/svr_{self.name}.json")
-        predx = self.data.test_x().fillna(self.data.train_x().median(numeric_only=True))
+        predx = self.data.test_x().fillna(self.data.train_x().mean(numeric_only=True))
         predicted = svr.predict(predx)
         submission = pd.DataFrame({
             self.data.ID: self.data.test_data_raw[self.data.ID],
@@ -67,7 +70,7 @@ class SVRRunner:
         svr.set_C(c)
         svr.set_gamma(g)
         svr.set_epsilon(e)
-        svr.set_kernel(["rbf", "poly", "sigmoid"])
+        svr.set_kernel(["rbf", "sigmoid"])
         svr.search()
         svr.pretty_print()
         svr.save(f"{self.output_dir}/svr_{self.name}_{idx}.json")
@@ -77,7 +80,7 @@ class SVRRunner:
             svr.set_C(bestparam[0])
             svr.set_gamma(bestparam[1])
             svr.set_epsilon(bestparam[2])
-            svr.set_kernel(["rbf", "poly", "sigmoid"])
+            svr.set_kernel(["rbf", "sigmoid"])
             svr.search()
             svr.pretty_print()
             svr.save(f"{self.output_dir}/svr_{self.name}_best.json")

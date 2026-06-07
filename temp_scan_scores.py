@@ -2,6 +2,7 @@ from pathlib import Path
 import json
 from typing import Any, Dict
 
+
 def load_json_tree(root_dir: str | Path) -> Dict[str, Any]:
     """
     Recursively find and load all JSON files under root_dir.
@@ -47,13 +48,14 @@ def load_json_tree(root_dir: str | Path) -> Dict[str, Any]:
 
 
 if __name__ == "__main__":
-    data = load_json_tree("./output_SVR")
+    data = load_json_tree("./output_rough_3fold")
 
     print(json.dumps(data, indent=2, ensure_ascii=False))
     best = float("-inf")
     best_file = None
     for subdir in data:
         for json_name in data[subdir]:
+            print(json_name)
             json_data = data[subdir][json_name]
             score = json_data["score"]
             if score > best:
