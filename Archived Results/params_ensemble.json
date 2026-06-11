@@ -1,0 +1,21 @@
+{
+  "model": "Ensemble (Clean SVR + x9^3 OLS)",
+  "blend_weight_B": 0.6,
+  "clip_percentile": 99.5,
+  "model_a": {
+    "type": "SVR",
+    "kernel": "rbf",
+    "C": 1000,
+    "epsilon": 3.0,
+    "gamma": 0.001,
+    "trained_on": "clean subset (IQR outlier removal)"
+  },
+  "model_b": {
+    "type": "LinearRegression",
+    "features": [
+      "x9^3"
+    ],
+    "trained_on": "all data"
+  },
+  "cv_r2": 0.1077
+}
