@@ -11,7 +11,7 @@ For a high-level overview of our methodology, architecture, and findings, please
 
 Reproducing the Final Selected **SVR** ModelThis repository provides three levels of reproducibility for the final Support Vector Regression (**SVR**) model using a sigmoid kernel and 3‑fold cross‑validation.
 
-## Option (1) Shortcut (Direct Reproduction) Fastest way to reproduce the final model and generate the submission CSV.
+## Option (1) Shortcut (Direct Reproduction) Fastest way
 ```bash
   python repro_best_svr.py
 ```
@@ -70,7 +70,9 @@ This produces the final fine‑tuned **SVR** model and the submission **csv**.
 
 
 ---
-Archived Code & ResultsThe Archived Code and Archived Results directories contain:
+Archived Code & Archived Results
+
+The Archived Code and Archived Results directories contain:
 
 - Earlier model attempts
     
