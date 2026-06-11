@@ -46,7 +46,7 @@ This generates a folder named output\_rough\_3fold, containing **json** files fo
 
 **Step 2 — Extract Best Rough‑Scan ResultsRun:**
 ```bash
-  python temp\_scan\_scores.py
+  python temp_scan_scores.py
 ```
 
 This script scans all **json** files in output\_rough\_3fold, identifies the best score, and prints the corresponding file path. Use this information to determine:
