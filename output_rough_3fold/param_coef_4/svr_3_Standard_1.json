@@ -1,0 +1,10 @@
+{
+  "hyperparameters": {
+    "estimator__C": 2500.0,
+    "estimator__epsilon": 16250.0,
+    "estimator__gamma": "scale",
+    "estimator__kernel": "rbf",
+    "imputer__strategy": "mean"
+  },
+  "score": -0.2625378785164261
+}
